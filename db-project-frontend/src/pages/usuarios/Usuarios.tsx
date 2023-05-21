@@ -1,8 +1,9 @@
 import React from 'react'
+import CustomTable from '../../components/CustomTable'
 
 const Usuarios = () => {
   return (
-    <div>Usuarios</div>
+    <CustomTable />
   )
 }
 

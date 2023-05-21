@@ -18,18 +18,16 @@ import {
 } from "@mui/material";
 
 import {
-  eliminarColaborador,
-  selectColaboradores,
   selectLoading,
   traerColaboradores,
-  traerColaboradorById,
   setRowsPerPage,
   setPage,
   selectPage,
   selectRowsPerPage,
   selectTotal,
   setLoadingSync,
-} from "../store/colaboradoresSlice";
+  selectData,
+} from "./store/tableSlice";
 
 import CustomTableHead from "./CustomTableHead";
 
@@ -81,12 +79,10 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function CustomTable(props) {
-  // --------------------------------------------------------------
-  const { actualizarItem } = props;
+export function CustomTable() {
   // --------------------------------------------------------------
   const dispatch = useDispatch();
-  const dataRedux = useSelector(selectColaboradores);
+  const dataRedux = useSelector(selectData);
   const pageRedux = useSelector(selectPage);
   const rowsPerPageRedux = useSelector(selectRowsPerPage);
   const totalRedux = useSelector(selectTotal);
@@ -98,11 +94,7 @@ function CustomTable(props) {
   });
   // --------------------------------------------------------------
   const classes = useStyles();
-  const [menuTable, setMenuTable] = useState(false);
-  const [anchorEl, setAnchorEl] = useState(null);
-  const [placement, setPlacement] = useState();
   const [data, setData] = useState([]);
-  const [deleteDialog, setDeleteDialog] = useState(false);
   // --------------------------------------------------------------
   const optionState = [
     { value: 10, label: "10" },
@@ -178,50 +170,6 @@ function CustomTable(props) {
     dispatch(setRowsPerPage(event.target.value));
     dispatch(setPage(0));
   }
-  // --------------------------------------------------------------
-  const handleClose = (type) => async () => {
-    if (type === "editar") {
-      await dispatch(traerColaboradorById(placement?.col_id));
-      setMenuTable(false);
-      actualizarItem();
-    } else if (type === "borrar") {
-      setDeleteDialog(true);
-      setMenuTable(false);
-    } else {
-      setMenuTable(false);
-    }
-  };
-
-  const handleClick = (item) => async (event) => {
-    setAnchorEl(event.currentTarget);
-    setMenuTable((prev) => placement?.col_id !== item.col_id || !prev);
-    setPlacement(item);
-  };
-  // --------------------------------------------------------------
-  const handleDelete = async () => {
-    try {
-      const result = await dispatch(eliminarColaborador(placement?.col_id));
-      if (result) {
-        setDeleteDialog(false);
-        dispatch(
-          showMessage({
-            message: "El colaborador se eliminó correctamente",
-            variant: result?.payload?.message,
-          })
-        );
-        await dispatch(setLoadingSync());
-      }
-    } catch (error) {
-      setDeleteDialog(false);
-      dispatch(
-        showMessage({
-          message: "Ocurrió un error al eliminar el colaborador",
-          variant: "error",
-        })
-      );
-    }
-  };
-
   // ----------------------------------------------------------------
   const ArrowBackIcon = () => {
     return (
@@ -531,5 +479,3 @@ function CustomTable(props) {
     </div>
   );
 }
-
-export default CustomTable;
