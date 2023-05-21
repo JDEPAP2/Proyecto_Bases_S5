@@ -1,10 +1,10 @@
-import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import _ from '@lodash';
-import clsx from 'clsx';
-import { format } from 'date-fns';
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import _ from "@lodash";
+import clsx from "clsx";
+import { format } from "date-fns";
 
-import { makeStyles } from '@mui/styles';
+import { makeStyles } from "@mui/styles";
 import {
   Table,
   TableBody,
@@ -12,13 +12,10 @@ import {
   TableRow,
   MenuItem,
   Typography,
-  IconButton,
   Pagination,
   PaginationItem,
   Select,
-} from '@mui/material';
-
-import FuseSvgIcon from '@fuse/core/FuseSvgIcon';
+} from "@mui/material";
 
 import {
   eliminarColaborador,
@@ -32,53 +29,55 @@ import {
   selectRowsPerPage,
   selectTotal,
   setLoadingSync,
-} from '../store/colaboradoresSlice';
+} from "../store/colaboradoresSlice";
 
-import CustomTableHead from './CustomTableHead';
+import CustomTableHead from "./CustomTableHead";
+
+import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/solid";
 
 const useStyles = makeStyles((theme) => ({
   textMenu: {
     fontSize: 14,
-    color: '#747B87',
+    color: "#747B87",
     marginLeft: 8,
     marginTop: 5,
   },
   tableCell: {
-    borderBottom: '1px solid #D1D9EB',
+    borderBottom: "1px solid #D1D9EB",
   },
   textFieldPag: {
     minWidth: 50,
     marginLeft: 12,
     marginRight: 12,
-    '& .MuiInputBase-root': {
-      padding: '0px',
+    "& .MuiInputBase-root": {
+      padding: "0px",
       minHeight: 0,
     },
-    '& .MuiSelect-select': {
+    "& .MuiSelect-select": {
       fontSize: 12,
-      color: '#2e2e2e',
+      color: "#2e2e2e",
       minHeight: 16,
-      padding: '3px 5px',
-      background: 'white',
+      padding: "3px 5px",
+      background: "white",
       borderRadius: 4,
-      display: 'flex',
-      justifyContent: 'center',
-      alignItems: 'center',
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
       minWidth: 24,
     },
 
-    '& input': {
+    "& input": {
       fontSize: 12,
-      color: '#2e2e2e',
+      color: "#2e2e2e",
       minHeight: 0,
-      padding: '3px 5px',
-      background: 'white',
+      padding: "3px 5px",
+      background: "white",
       borderRadius: 4,
     },
   },
   selectedPag: {
-    borderRadius: 'inherit',
-    borderBottom: '1px solid #4FDFC8',
+    borderRadius: "inherit",
+    borderBottom: "1px solid #4FDFC8",
   },
 }));
 
@@ -94,8 +93,8 @@ function CustomTable(props) {
   const loadingRedux = useSelector(selectLoading);
   // --------------------------------------------------------------
   const [order, setOrder] = useState({
-    direction: 'desc',
-    id: 'col_id',
+    direction: "desc",
+    id: "col_id",
   });
   // --------------------------------------------------------------
   const classes = useStyles();
@@ -106,10 +105,10 @@ function CustomTable(props) {
   const [deleteDialog, setDeleteDialog] = useState(false);
   // --------------------------------------------------------------
   const optionState = [
-    { value: 10, label: '10' },
-    { value: 25, label: '25' },
-    { value: 50, label: '50' },
-    { value: 100, label: '100' },
+    { value: 10, label: "10" },
+    { value: 25, label: "25" },
+    { value: 50, label: "50" },
+    { value: 100, label: "100" },
   ];
   const count =
     totalRedux <= 10
@@ -161,9 +160,9 @@ function CustomTable(props) {
   // --------------------------------------------------------------
   function handleRequestSort(event, property) {
     const id = property;
-    let direction = 'desc';
-    if (order.id === property && order.direction === 'desc') {
-      direction = 'asc';
+    let direction = "desc";
+    if (order.id === property && order.direction === "desc") {
+      direction = "asc";
     }
     setOrder({
       direction,
@@ -181,11 +180,11 @@ function CustomTable(props) {
   }
   // --------------------------------------------------------------
   const handleClose = (type) => async () => {
-    if (type === 'editar') {
+    if (type === "editar") {
       await dispatch(traerColaboradorById(placement?.col_id));
       setMenuTable(false);
       actualizarItem();
-    } else if (type === 'borrar') {
+    } else if (type === "borrar") {
       setDeleteDialog(true);
       setMenuTable(false);
     } else {
@@ -206,7 +205,7 @@ function CustomTable(props) {
         setDeleteDialog(false);
         dispatch(
           showMessage({
-            message: 'El colaborador se eliminó correctamente',
+            message: "El colaborador se eliminó correctamente",
             variant: result?.payload?.message,
           })
         );
@@ -216,8 +215,8 @@ function CustomTable(props) {
       setDeleteDialog(false);
       dispatch(
         showMessage({
-          message: 'Ocurrió un error al eliminar el colaborador',
-          variant: 'error',
+          message: "Ocurrió un error al eliminar el colaborador",
+          variant: "error",
         })
       );
     }
@@ -228,11 +227,9 @@ function CustomTable(props) {
     return (
       <div
         className="w-28 h-28 rounded-full flex items-center justify-center"
-        style={{ background: '#EFE8FF' }}
+        style={{ background: "#EFE8FF" }}
       >
-        <FuseSvgIcon className="text-48" size={16} color="#3C00BB">
-          material-outline:arrow_back_ios
-        </FuseSvgIcon>
+        <ChevronLeftIcon className="text-48" size={16} color="#3C00BB" />
       </div>
     );
   };
@@ -240,11 +237,9 @@ function CustomTable(props) {
     return (
       <div
         className="w-28 h-28 rounded-full flex items-center justify-center"
-        style={{ background: '#EFE8FF' }}
+        style={{ background: "#EFE8FF" }}
       >
-        <FuseSvgIcon className="text-48" size={16} color="#3C00BB">
-          material-outline:arrow_forward_ios
-        </FuseSvgIcon>
+        <ChevronRightIcon className="text-48" size={16} color="#3C00BB" />
       </div>
     );
   };
@@ -279,7 +274,7 @@ function CustomTable(props) {
             <PaginationItem
               components={{ previous: ArrowBackIcon, next: ArrowForwardIcon }}
               style={{
-                background: 'inherit',
+                background: "inherit",
               }}
               classes={{ selected: classes.selectedPag }}
               {...item}
@@ -288,223 +283,214 @@ function CustomTable(props) {
         />
       </div>
       {/* <FuseScrollbars className="grow overflow-x-auto"> */}
-        <Table className="min-w-xl" aria-labelledby="tableTitle">
-          <CustomTableHead onRequestSort={handleRequestSort} order={order} />
-          <TableBody>
-            {_.orderBy(
-              data,
-              [
-                (o) => {
-                  switch (order.col_id) {
-                    case 'Id': {
-                      return o.col_id;
-                    }
-                    default: {
-                      return o[order.col_id];
-                    }
+      <Table className="min-w-xl" aria-labelledby="tableTitle">
+        <CustomTableHead onRequestSort={handleRequestSort} order={order} />
+        <TableBody>
+          {_.orderBy(
+            data,
+            [
+              (o) => {
+                switch (order.col_id) {
+                  case "Id": {
+                    return o.col_id;
                   }
-                },
-              ],
-              [order.direction]
-            ).map((e, index) => {
-              return (
-                <TableRow key={index}>
-                  <TableCell
-                    align="center"
-                    scope="row"
-                    component="th"
-                    className={clsx(classes.tableCell, 'p-0')}
+                  default: {
+                    return o[order.col_id];
+                  }
+                }
+              },
+            ],
+            [order.direction]
+          ).map((e, index) => {
+            return (
+              <TableRow key={index}>
+                <TableCell
+                  align="center"
+                  scope="row"
+                  component="th"
+                  className={clsx(classes.tableCell, "p-0")}
+                >
+                  <Typography
+                    color="#4C647A"
+                    className="text-11 h-44 flex justify-center items-center"
                   >
-                    <IconButton onClick={handleClick(e)}>
-                      <FuseSvgIcon className="text-48 " size={18} color="#AA82FF">
-                        feather:more-vertical
-                      </FuseSvgIcon>
-                    </IconButton>
-                  </TableCell>
-                  <TableCell
-                    align="center"
-                    scope="row"
-                    component="th"
-                    className={clsx(classes.tableCell, 'p-0')}
-                  >
+                    {e?.col_id}
+                  </Typography>
+                </TableCell>
+                <TableCell
+                  align="center"
+                  scope="row"
+                  component="th"
+                  className={clsx(classes.tableCell, "p-0")}
+                >
+                  <div className="h-44 flex justify-center items-center">
                     <Typography
                       color="#4C647A"
                       className="text-11 h-44 flex justify-center items-center"
                     >
-                      {e?.col_id}
+                      {e?.col_fecha_creacion &&
+                        format(
+                          new Date(e?.col_fecha_creacion),
+                          "yyyy-MM-dd (hh:mm aaa)"
+                        )}
                     </Typography>
-                  </TableCell>
-                  <TableCell
-                    align="center"
-                    scope="row"
-                    component="th"
-                    className={clsx(classes.tableCell, 'p-0')}
-                  >
-                    <div className="h-44 flex justify-center items-center">
-                      <Typography
-                        color="#4C647A"
-                        className="text-11 h-44 flex justify-center items-center"
-                      >
-                        {e?.col_fecha_creacion &&
-                          format(new Date(e?.col_fecha_creacion), 'yyyy-MM-dd (hh:mm aaa)')}
-                      </Typography>
-                    </div>
-                  </TableCell>
-                  <TableCell
-                    align="center"
-                    scope="row"
-                    component="th"
-                    className={clsx(classes.tableCell, 'p-0')}
-                  >
-                    <div className="h-44 flex justify-center items-center">
-                      <Typography
-                        color="#4C647A"
-                        className="text-11 h-44 flex justify-center items-center"
-                      >
-                        {e?.fk_tipos_documento?.tsd_descripcion}
-                      </Typography>
-                    </div>
-                  </TableCell>
-                  <TableCell
-                    align="center"
-                    scope="row"
-                    component="th"
-                    className={clsx(classes.tableCell, 'p-0')}
-                  >
-                    <div className="h-44 flex justify-center items-center">
-                      <Typography
-                        color="#4C647A"
-                        className="text-11 h-44 flex justify-center items-center"
-                      >
-                        {e?.col_nombres}
-                      </Typography>
-                    </div>
-                  </TableCell>
-                  <TableCell
-                    align="left"
-                    scope="row"
-                    component="th"
-                    className={clsx(classes.tableCell, 'p-0')}
-                  >
-                    <div className="h-44 flex items-center">
-                      <Typography
-                        color="#4C647A"
-                        className="text-11 text-left overflow-hidden text-ellipsis max-h-36"
-                      >
-                        {e?.col_apellidos}
-                      </Typography>
-                    </div>
-                  </TableCell>
-                  <TableCell
-                    align="center"
-                    scope="row"
-                    component="th"
-                    className={clsx(classes.tableCell, 'p-0')}
-                  >
-                    <div className="h-44 flex justify-center items-center">
-                      <Typography
-                        color="#4C647A"
-                        className="text-11 h-44 flex justify-center items-center"
-                      >
-                        {e?.fk_ciudad?.cty_name}
-                      </Typography>
-                    </div>
-                  </TableCell>
-                  <TableCell
-                    align="center"
-                    scope="row"
-                    component="th"
-                    className={clsx(classes.tableCell, 'p-0')}
-                  >
-                    <div className="h-44 flex justify-center items-center">
-                      <Typography
-                        color="#4C647A"
-                        className="text-11 h-44 flex justify-center items-center"
-                      >
-                        {e?.col_email}
-                      </Typography>
-                    </div>
-                  </TableCell>
-                  <TableCell
-                    align="center"
-                    scope="row"
-                    component="th"
-                    className={clsx(classes.tableCell, 'p-0')}
-                  >
-                    <div className="h-44 flex justify-center items-center">
-                      <Typography
-                        color="#4C647A"
-                        className="text-11 h-44 flex justify-center items-center"
-                      >
-                        {e?.col_celular}
-                      </Typography>
-                    </div>
-                  </TableCell>
-                  <TableCell
-                    align="center"
-                    scope="row"
-                    component="th"
-                    className={clsx(classes.tableCell, 'p-0')}
-                  >
-                    <div className="h-44 flex justify-center items-center">
-                      <Typography
-                        color="#4C647A"
-                        className="text-11 h-44 flex justify-center items-center"
-                      >
-                        {e?.fk_rol?.rl_nombre}
-                      </Typography>
-                    </div>
-                  </TableCell>
-                  <TableCell
-                    align="center"
-                    scope="row"
-                    component="th"
-                    className={clsx(classes.tableCell, 'p-0')}
-                  >
-                    <div className="h-44 flex justify-center items-center">
-                      <Typography
-                        color="#4C647A"
-                        className="text-11 h-44 flex justify-center items-center"
-                      >
-                        {e?.col_fecha_nacimiento}
-                      </Typography>
-                    </div>
-                  </TableCell>
-                  <TableCell
-                    align="center"
-                    scope="row"
-                    component="th"
-                    className={clsx(classes.tableCell, 'p-0')}
-                  >
-                    <div className="h-44 flex justify-center items-center">
-                      <Typography
-                        color={e.col_mesa_ayuda === null ? '#EB5757' : '#4F0CDD'}
-                        className="text-11 h-44 flex justify-center items-center"
-                      >
-                        {e.col_mesa_ayuda === null
-                          ? 'N/A'
-                          : `${e.col_mesa_ayuda?.fk_ciudad?.cty_name} - ${e.col_mesa_ayuda?.colma_whatssapp}`}
-                      </Typography>
-                    </div>
-                  </TableCell>
-                  <TableCell
-                    align="center"
-                    scope="row"
-                    component="th"
-                    className={clsx(classes.tableCell, 'p-0')}
-                  >
+                  </div>
+                </TableCell>
+                <TableCell
+                  align="center"
+                  scope="row"
+                  component="th"
+                  className={clsx(classes.tableCell, "p-0")}
+                >
+                  <div className="h-44 flex justify-center items-center">
                     <Typography
-                      color={e.col_estado === 1 ? '#11AE92' : '#EB5757'}
+                      color="#4C647A"
                       className="text-11 h-44 flex justify-center items-center"
                     >
-                      {e?.col_estado === 1 ? 'Activo' : 'Inactivo'}
+                      {e?.fk_tipos_documento?.tsd_descripcion}
                     </Typography>
-                  </TableCell>
-                </TableRow>
-              );
-            })}
-          </TableBody>
-        </Table>
+                  </div>
+                </TableCell>
+                <TableCell
+                  align="center"
+                  scope="row"
+                  component="th"
+                  className={clsx(classes.tableCell, "p-0")}
+                >
+                  <div className="h-44 flex justify-center items-center">
+                    <Typography
+                      color="#4C647A"
+                      className="text-11 h-44 flex justify-center items-center"
+                    >
+                      {e?.col_nombres}
+                    </Typography>
+                  </div>
+                </TableCell>
+                <TableCell
+                  align="left"
+                  scope="row"
+                  component="th"
+                  className={clsx(classes.tableCell, "p-0")}
+                >
+                  <div className="h-44 flex items-center">
+                    <Typography
+                      color="#4C647A"
+                      className="text-11 text-left overflow-hidden text-ellipsis max-h-36"
+                    >
+                      {e?.col_apellidos}
+                    </Typography>
+                  </div>
+                </TableCell>
+                <TableCell
+                  align="center"
+                  scope="row"
+                  component="th"
+                  className={clsx(classes.tableCell, "p-0")}
+                >
+                  <div className="h-44 flex justify-center items-center">
+                    <Typography
+                      color="#4C647A"
+                      className="text-11 h-44 flex justify-center items-center"
+                    >
+                      {e?.fk_ciudad?.cty_name}
+                    </Typography>
+                  </div>
+                </TableCell>
+                <TableCell
+                  align="center"
+                  scope="row"
+                  component="th"
+                  className={clsx(classes.tableCell, "p-0")}
+                >
+                  <div className="h-44 flex justify-center items-center">
+                    <Typography
+                      color="#4C647A"
+                      className="text-11 h-44 flex justify-center items-center"
+                    >
+                      {e?.col_email}
+                    </Typography>
+                  </div>
+                </TableCell>
+                <TableCell
+                  align="center"
+                  scope="row"
+                  component="th"
+                  className={clsx(classes.tableCell, "p-0")}
+                >
+                  <div className="h-44 flex justify-center items-center">
+                    <Typography
+                      color="#4C647A"
+                      className="text-11 h-44 flex justify-center items-center"
+                    >
+                      {e?.col_celular}
+                    </Typography>
+                  </div>
+                </TableCell>
+                <TableCell
+                  align="center"
+                  scope="row"
+                  component="th"
+                  className={clsx(classes.tableCell, "p-0")}
+                >
+                  <div className="h-44 flex justify-center items-center">
+                    <Typography
+                      color="#4C647A"
+                      className="text-11 h-44 flex justify-center items-center"
+                    >
+                      {e?.fk_rol?.rl_nombre}
+                    </Typography>
+                  </div>
+                </TableCell>
+                <TableCell
+                  align="center"
+                  scope="row"
+                  component="th"
+                  className={clsx(classes.tableCell, "p-0")}
+                >
+                  <div className="h-44 flex justify-center items-center">
+                    <Typography
+                      color="#4C647A"
+                      className="text-11 h-44 flex justify-center items-center"
+                    >
+                      {e?.col_fecha_nacimiento}
+                    </Typography>
+                  </div>
+                </TableCell>
+                <TableCell
+                  align="center"
+                  scope="row"
+                  component="th"
+                  className={clsx(classes.tableCell, "p-0")}
+                >
+                  <div className="h-44 flex justify-center items-center">
+                    <Typography
+                      color={e.col_mesa_ayuda === null ? "#EB5757" : "#4F0CDD"}
+                      className="text-11 h-44 flex justify-center items-center"
+                    >
+                      {e.col_mesa_ayuda === null
+                        ? "N/A"
+                        : `${e.col_mesa_ayuda?.fk_ciudad?.cty_name} - ${e.col_mesa_ayuda?.colma_whatssapp}`}
+                    </Typography>
+                  </div>
+                </TableCell>
+                <TableCell
+                  align="center"
+                  scope="row"
+                  component="th"
+                  className={clsx(classes.tableCell, "p-0")}
+                >
+                  <Typography
+                    color={e.col_estado === 1 ? "#11AE92" : "#EB5757"}
+                    className="text-11 h-44 flex justify-center items-center"
+                  >
+                    {e?.col_estado === 1 ? "Activo" : "Inactivo"}
+                  </Typography>
+                </TableCell>
+              </TableRow>
+            );
+          })}
+        </TableBody>
+      </Table>
       {/* </FuseScrollbars> */}
       <div className="flex sm:flex-row flex-col justify-end items-center mt-12">
         <Typography>
@@ -534,7 +520,7 @@ function CustomTable(props) {
             <PaginationItem
               components={{ previous: ArrowBackIcon, next: ArrowForwardIcon }}
               style={{
-                background: 'inherit',
+                background: "inherit",
               }}
               classes={{ selected: classes.selectedPag }}
               {...item}

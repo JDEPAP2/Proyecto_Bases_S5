@@ -1,11 +1,11 @@
-import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { Controller, useForm } from 'react-hook-form';
-import { format } from 'date-fns';
-import clsx from 'clsx';
-import { DatePicker } from '@mui/x-date-pickers';
+import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Controller, useForm } from "react-hook-form";
+import { format } from "date-fns";
+import clsx from "clsx";
+import { DatePicker } from "@mui/x-date-pickers";
 
-import { makeStyles } from '@mui/styles';
+import { makeStyles } from "@mui/styles";
 import {
   TextField,
   MenuItem,
@@ -16,179 +16,171 @@ import {
   Select,
   TableHead,
   Typography,
-} from '@mui/material';
-import FuseSvgIcon from '@fuse/core/FuseSvgIcon';
+} from "@mui/material";
 
 import {
   traerColaboradores,
   setPage,
   selectPage,
   selectRowsPerPage,
-} from '../store/colaboradoresSlice';
+} from "../store/colaboradoresSlice";
+import { CalendarIcon } from "@heroicons/react/24/solid";
 
 const useStyles = makeStyles((theme) => ({
   textField: {
-    width: '100%',
-    '& .MuiInputBase-root': {
-      padding: '0px',
+    width: "100%",
+    "& .MuiInputBase-root": {
+      padding: "0px",
       minHeight: 0,
     },
-    '& .MuiSelect-select': {
+    "& .MuiSelect-select": {
       fontSize: 12,
-      color: '#2e2e2e',
+      color: "#2e2e2e",
       minHeight: 16,
-      padding: '3px 5px',
-      background: 'white',
+      padding: "3px 5px",
+      background: "white",
       borderRadius: 4,
-      display: 'flex',
-      justifyContent: 'center',
-      alignItems: 'center',
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
     },
-    '& input': {
+    "& input": {
       fontSize: 12,
-      color: '#2e2e2e',
+      color: "#2e2e2e",
       minHeight: 0,
-      padding: '3px 5px',
-      background: 'white',
+      padding: "3px 5px",
+      background: "white",
       borderRadius: 4,
     },
   },
   customSort: {
-    '&.Mui-active': {
-      color: '#1B0055',
+    "&.Mui-active": {
+      color: "#1B0055",
     },
-    '&.MuiTableSortLabel-icon': {
-      color: '#1B0055',
+    "&.MuiTableSortLabel-icon": {
+      color: "#1B0055",
     },
-    '&.Mui-active > .MuiTableSortLabel-icon': {
-      color: '#1B0055',
+    "&.Mui-active > .MuiTableSortLabel-icon": {
+      color: "#1B0055",
     },
-    '&:hover': {
-      color: '#000',
+    "&:hover": {
+      color: "#000",
     },
   },
 }));
 
 const rows = [
   {
-    id: 'actions',
-    align: 'left',
-    disablePadding: true,
-    sort: false,
-    label: '',
-    width: '1%',
-  },
-  {
-    id: 'col_id',
-    align: 'center',
+    id: "col_id",
+    align: "center",
     disablePadding: false,
     sort: true,
-    label: 'ID',
-    width: '4%',
+    label: "ID",
+    width: "4%",
   },
   {
-    id: 'col_fecha_creacion',
-    align: 'center',
+    id: "col_fecha_creacion",
+    align: "center",
     disablePadding: false,
     sort: true,
-    label: 'Creado',
-    width: '7%',
+    label: "Creado",
+    width: "7%",
   },
   {
-    id: 'col_tipo_documento',
-    align: 'center',
+    id: "col_tipo_documento",
+    align: "center",
     disablePadding: false,
     sort: true,
-    label: 'Doc. identidad',
-    width: '10%',
+    label: "Doc. identidad",
+    width: "10%",
   },
   {
-    id: 'col_nombres',
-    align: 'center',
+    id: "col_nombres",
+    align: "center",
     disablePadding: false,
     sort: true,
-    label: 'Nombres',
-    width: '10%',
+    label: "Nombres",
+    width: "10%",
   },
   {
-    id: 'col_apellidos',
-    align: 'center',
+    id: "col_apellidos",
+    align: "center",
     disablePadding: false,
     sort: true,
-    label: 'Apellidos',
-    width: '10%',
+    label: "Apellidos",
+    width: "10%",
   },
   {
-    id: 'col_ciudad',
-    align: 'center',
+    id: "col_ciudad",
+    align: "center",
     disablePadding: false,
     sort: true,
-    label: 'Ciudad',
-    width: '7%',
+    label: "Ciudad",
+    width: "7%",
   },
   {
-    id: 'col_email',
-    align: 'center',
+    id: "col_email",
+    align: "center",
     disablePadding: false,
     sort: true,
-    label: 'Email',
-    width: '12%',
+    label: "Email",
+    width: "12%",
   },
   {
-    id: 'col_celular',
-    align: 'center',
+    id: "col_celular",
+    align: "center",
     disablePadding: false,
     sort: true,
-    label: 'Celular',
-    width: '7%',
+    label: "Celular",
+    width: "7%",
   },
   {
-    id: 'col_rol',
-    align: 'center',
+    id: "col_rol",
+    align: "center",
     disablePadding: false,
     sort: false,
-    label: 'ROL',
-    width: '7%',
+    label: "ROL",
+    width: "7%",
   },
   {
-    id: 'col_fecha_nacimiento',
-    align: 'center',
+    id: "col_fecha_nacimiento",
+    align: "center",
     disablePadding: false,
     sort: false,
-    label: 'Cumpleaños',
-    width: '10%',
+    label: "Cumpleaños",
+    width: "10%",
   },
   {
-    id: 'col_mesa_ayuda',
-    align: 'center',
+    id: "col_mesa_ayuda",
+    align: "center",
     disablePadding: false,
     sort: false,
-    label: 'Mesa de ayuda',
-    width: '7%',
+    label: "Mesa de ayuda",
+    width: "7%",
   },
   {
-    id: 'col_estado',
-    align: 'center',
+    id: "col_estado",
+    align: "center",
     disablePadding: false,
     sort: true,
-    label: 'Estado',
-    width: '7%',
+    label: "Estado",
+    width: "7%",
   },
 ];
 
 const defaultValues = {
-  col_id: '',
+  col_id: "",
   col_fecha_creacion: null,
-  col_documento: '',
-  col_nombres: '',
-  col_apellidos: '',
-  col_ciudad: '',
-  col_email: '',
-  col_celular: '',
-  col_rol: '',
+  col_documento: "",
+  col_nombres: "",
+  col_apellidos: "",
+  col_ciudad: "",
+  col_email: "",
+  col_celular: "",
+  col_rol: "",
   col_fecha_nacimiento: null,
-  col_mesa_ayuda: '',
-  col_estado: '',
+  col_mesa_ayuda: "",
+  col_estado: "",
 };
 
 function CustomTableHead(props) {
@@ -199,15 +191,15 @@ function CustomTableHead(props) {
   const rowsPerPageRedux = useSelector(selectRowsPerPage);
   // --------------------------------------------------
   const methods = useForm({
-    mode: 'onChange',
+    mode: "onChange",
     defaultValues,
   });
   const { watch, setValue, getValues, control } = methods;
   // --------------------------------------------------
   const optionState = [
-    { value: '', label: '- seleccione -' },
-    { value: 1, label: 'Activo' },
-    { value: 0, label: 'Inactivo' },
+    { value: "", label: "- seleccione -" },
+    { value: 1, label: "Activo" },
+    { value: 0, label: "Inactivo" },
   ];
   // -------------------------------------------------------
   const createSortHandler = (property) => (event) => {
@@ -216,24 +208,24 @@ function CustomTableHead(props) {
   // -------------------------------------------------------
   const handledChangeInput = (event) => {
     setValue(event.target.name, event.target.value);
-    if (event.target.value === '') {
-      setValue(`${event.target.name}`, '');
-      handledEnter('random');
+    if (event.target.value === "") {
+      setValue(`${event.target.name}`, "");
+      handledEnter("random");
     }
-    if (event.target.name === 'col_estado' && event.target.value !== '') {
-      handledEnter('random');
+    if (event.target.name === "col_estado" && event.target.value !== "") {
+      handledEnter("random");
     }
   };
   const handledChangeDate = (prop) => (event) => {
     setValue(prop, event);
     if (event === null) {
       setValue(prop, null);
-      handledEnter('random');
+      handledEnter("random");
     }
   };
   // -------------------------------------------------------
   const handledEnter = async (event) => {
-    if (event.key === 'Enter' || event === 'random') {
+    if (event.key === "Enter" || event === "random") {
       const data = getValues();
       await dispatch(setPage(0));
       await dispatch(
@@ -246,12 +238,12 @@ function CustomTableHead(props) {
             ...data,
             col_fecha_creacion:
               data.col_fecha_creacion === null
-                ? ''
-                : format(new Date(data.col_fecha_creacion), 'yyyy-MM-dd'),
+                ? ""
+                : format(new Date(data.col_fecha_creacion), "yyyy-MM-dd"),
             col_fecha_nacimiento:
               data.col_fecha_nacimiento === null
-                ? ''
-                : format(new Date(data.col_fecha_nacimiento), 'yyyy-MM-dd'),
+                ? ""
+                : format(new Date(data.col_fecha_nacimiento), "yyyy-MM-dd"),
           },
         })
       );
@@ -260,45 +252,59 @@ function CustomTableHead(props) {
 
   return (
     <TableHead className="h-48 sm:h-64">
-      <TableRow style={{ backgroundColor: '#EFE8FF' }}>
+      <TableRow style={{ backgroundColor: "#EFE8FF" }}>
         {rows.map((row) => (
-          <TableCell align="center" key={row.id} className="p-5" style={{ width: row.width }}>
+          <TableCell
+            align="center"
+            key={row.id}
+            className="p-5"
+            style={{ width: row.width }}
+          >
             <div className="flex justify-center items-center">
               {row.sort && (
                 <Tooltip
                   title="Ordenar"
-                  placement={row.align === 'right' ? 'bottom-end' : 'bottom-start'}
+                  placement={
+                    row.align === "right" ? "bottom-end" : "bottom-start"
+                  }
                   enterDelay={300}
                 >
                   <TableSortLabel
                     active={props.order.id === row.id}
                     direction={props.order.direction}
                     onClick={createSortHandler(row.id)}
-                    className={clsx(classes.customSort, 'text-11 font-semibold mr-8 tectx-center')}
+                    className={clsx(
+                      classes.customSort,
+                      "text-11 font-semibold mr-8 tectx-center"
+                    )}
                   >
                     {row.label}
                   </TableSortLabel>
                 </Tooltip>
               )}
               {!row.sort && (
-                <Typography className="text-11 font-semibold mr-8">{row.label}</Typography>
+                <Typography className="text-11 font-semibold mr-8">
+                  {row.label}
+                </Typography>
               )}
             </div>
           </TableCell>
         ))}
       </TableRow>
-      <TableRow style={{ backgroundColor: '#F7F8FC' }} className="h-36">
+      <TableRow style={{ backgroundColor: "#F7F8FC" }} className="h-36">
         {rows.map((row) => {
           return (
             <TableCell
               className="px-4 md:px-16 py-0"
               key={row.id}
               align={row.align}
-              padding={row.disablePadding ? 'none' : 'normal'}
-              sortDirection={props.order.id === row.id ? props.order.direction : false}
+              padding={row.disablePadding ? "none" : "normal"}
+              sortDirection={
+                props.order.id === row.id ? props.order.direction : false
+              }
               style={{ width: row.width, maxHeight: 10 }}
             >
-              {row.id === 'col_id' && (
+              {row.id === "col_id" && (
                 <Controller
                   name="col_id"
                   control={control}
@@ -315,7 +321,7 @@ function CustomTableHead(props) {
                   )}
                 />
               )}
-              {row.id == 'col_fecha_creacion' && (
+              {row.id == "col_fecha_creacion" && (
                 <Controller
                   control={control}
                   name="col_fecha_creacion"
@@ -326,28 +332,30 @@ function CustomTableHead(props) {
                       disableFuture
                       value={field.value}
                       inputFormat="yyyy-MM-dd"
-                      onAccept={() => handledEnter('random')}
-                      onChange={handledChangeDate('col_fecha_creacion')}
+                      onAccept={() => handledEnter("random")}
+                      onChange={handledChangeDate("col_fecha_creacion")}
                       renderInput={(_props) => (
                         <TextField
                           id="col_fecha_creacion"
                           className={classes.textField}
-                          style={{ background: '#fff' }}
+                          style={{ background: "#fff" }}
                           {..._props}
                         />
                       )}
                       components={{
                         OpenPickerIcon: () => (
-                          <FuseSvgIcon className="text-48 mr-8" size={14} color="#651DFF">
-                            feather:calendar
-                          </FuseSvgIcon>
+                          <CalendarIcon
+                            className="text-48 mr-8"
+                            size={14}
+                            color="#651DFF"
+                          />
                         ),
                       }}
                     />
                   )}
                 />
               )}
-              {row.id === 'col_tipo_documento' && (
+              {row.id === "col_tipo_documento" && (
                 <Controller
                   name="col_tipo_documento"
                   control={control}
@@ -364,7 +372,7 @@ function CustomTableHead(props) {
                   )}
                 />
               )}
-              {row.id === 'col_nombres' && (
+              {row.id === "col_nombres" && (
                 <Controller
                   name="col_nombres"
                   control={control}
@@ -381,7 +389,7 @@ function CustomTableHead(props) {
                   )}
                 />
               )}
-              {row.id === 'col_apellidos' && (
+              {row.id === "col_apellidos" && (
                 <Controller
                   name="col_apellidos"
                   control={control}
@@ -398,7 +406,7 @@ function CustomTableHead(props) {
                   )}
                 />
               )}
-              {row.id === 'col_ciudad' && (
+              {row.id === "col_ciudad" && (
                 <Controller
                   name="col_ciudad"
                   control={control}
@@ -415,7 +423,7 @@ function CustomTableHead(props) {
                   )}
                 />
               )}
-              {row.id === 'col_email' && (
+              {row.id === "col_email" && (
                 <Controller
                   name="col_email"
                   control={control}
@@ -431,7 +439,7 @@ function CustomTableHead(props) {
                   )}
                 />
               )}
-              {row.id === 'col_rol' && (
+              {row.id === "col_rol" && (
                 <Controller
                   name="col_rol"
                   control={control}
@@ -447,7 +455,7 @@ function CustomTableHead(props) {
                   )}
                 />
               )}
-              {row.id === 'col_celular' && (
+              {row.id === "col_celular" && (
                 <Controller
                   name="col_celular"
                   control={control}
@@ -463,7 +471,7 @@ function CustomTableHead(props) {
                   )}
                 />
               )}
-              {row.id == 'col_fecha_nacimiento' && (
+              {row.id == "col_fecha_nacimiento" && (
                 <Controller
                   control={control}
                   name="col_fecha_nacimiento"
@@ -474,28 +482,30 @@ function CustomTableHead(props) {
                       disableFuture
                       value={field.value}
                       inputFormat="yyyy-MM-dd"
-                      onAccept={() => handledEnter('random')}
-                      onChange={handledChangeDate('col_fecha_nacimiento')}
+                      onAccept={() => handledEnter("random")}
+                      onChange={handledChangeDate("col_fecha_nacimiento")}
                       renderInput={(_props) => (
                         <TextField
                           id="col_fecha_nacimiento"
                           className={classes.textField}
-                          style={{ background: '#fff' }}
+                          style={{ background: "#fff" }}
                           {..._props}
                         />
                       )}
                       components={{
                         OpenPickerIcon: () => (
-                          <FuseSvgIcon className="text-48 mr-8" size={14} color="#651DFF">
-                            feather:calendar
-                          </FuseSvgIcon>
+                          <CalendarIcon
+                            className="text-48 mr-8"
+                            size={14}
+                            color="#651DFF"
+                          />
                         ),
                       }}
                     />
                   )}
                 />
               )}
-              {row.id === 'col_estado' && (
+              {row.id === "col_estado" && (
                 <Controller
                   name="col_estado"
                   control={control}
