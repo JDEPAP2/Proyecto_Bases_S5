@@ -19,7 +19,7 @@ import {
 
 import {
   selectLoading,
-  traerColaboradores,
+  // traerColaboradores,
   setRowsPerPage,
   setPage,
   selectPage,
@@ -112,13 +112,13 @@ export function CustomTable() {
   useEffect(() => {
     async function fetch() {
       await dispatch(
-        traerColaboradores({
-          page: pageRedux,
-          rowsPerPage: rowsPerPageRedux,
-          orderBy: order.id,
-          order: order.direction,
-          params: {},
-        })
+        // traerColaboradores({
+        //   page: pageRedux,
+        //   rowsPerPage: rowsPerPageRedux,
+        //   orderBy: order.id,
+        //   order: order.direction,
+        //   params: {},
+        // })
       );
     }
     fetch();
@@ -128,13 +128,13 @@ export function CustomTable() {
     async function fetch() {
       if (loadingRedux) {
         await dispatch(
-          traerColaboradores({
-            page: pageRedux,
-            rowsPerPage: rowsPerPageRedux,
-            orderBy: order.id,
-            order: order.direction,
-            params: {},
-          })
+          // traerColaboradores({
+          //   page: pageRedux,
+          //   rowsPerPage: rowsPerPageRedux,
+          //   orderBy: order.id,
+          //   order: order.direction,
+          //   params: {},
+          // })
         );
         await dispatch(setLoadingSync());
       }
