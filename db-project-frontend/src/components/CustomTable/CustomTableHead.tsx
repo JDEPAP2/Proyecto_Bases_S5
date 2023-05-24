@@ -1,9 +1,9 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Controller, useForm } from "react-hook-form";
-import { format } from "date-fns";
+// import { format } from "date-fns";
 import clsx from "clsx";
-import { DatePicker } from "@mui/x-date-pickers";
+// import { DatePicker } from "@mui/x-date-pickers";
 
 import { makeStyles } from "@mui/styles";
 import {
@@ -19,11 +19,11 @@ import {
 } from "@mui/material";
 
 import {
-  traerColaboradores,
+  // traerColaboradores,
   setPage,
   selectPage,
   selectRowsPerPage,
-} from "../store/colaboradoresSlice";
+} from "./store/tableSlice";
 import { CalendarIcon } from "@heroicons/react/24/solid";
 
 const useStyles = makeStyles((theme) => ({
@@ -228,25 +228,25 @@ function CustomTableHead(props) {
     if (event.key === "Enter" || event === "random") {
       const data = getValues();
       await dispatch(setPage(0));
-      await dispatch(
-        traerColaboradores({
-          page: pageRedux,
-          rowsPerPage: rowsPerPageRedux,
-          orderBy: props.order.id,
-          order: props.order.direction,
-          params: {
-            ...data,
-            col_fecha_creacion:
-              data.col_fecha_creacion === null
-                ? ""
-                : format(new Date(data.col_fecha_creacion), "yyyy-MM-dd"),
-            col_fecha_nacimiento:
-              data.col_fecha_nacimiento === null
-                ? ""
-                : format(new Date(data.col_fecha_nacimiento), "yyyy-MM-dd"),
-          },
-        })
-      );
+      // await dispatch(
+      //   traerColaboradores({
+      //     page: pageRedux,
+      //     rowsPerPage: rowsPerPageRedux,
+      //     orderBy: props.order.id,
+      //     order: props.order.direction,
+      //     params: {
+      //       ...data,
+      //       col_fecha_creacion:
+      //         data.col_fecha_creacion === null
+      //           ? ""
+      //           : format(new Date(data.col_fecha_creacion), "yyyy-MM-dd"),
+      //       col_fecha_nacimiento:
+      //         data.col_fecha_nacimiento === null
+      //           ? ""
+      //           : format(new Date(data.col_fecha_nacimiento), "yyyy-MM-dd"),
+      //     },
+      //   })
+      // );
     }
   };
 
@@ -321,7 +321,7 @@ function CustomTableHead(props) {
                   )}
                 />
               )}
-              {row.id == "col_fecha_creacion" && (
+              {/* {row.id == "col_fecha_creacion" && (
                 <Controller
                   control={control}
                   name="col_fecha_creacion"
@@ -371,7 +371,7 @@ function CustomTableHead(props) {
                     />
                   )}
                 />
-              )}
+              )} */}
               {row.id === "col_nombres" && (
                 <Controller
                   name="col_nombres"
@@ -471,7 +471,7 @@ function CustomTableHead(props) {
                   )}
                 />
               )}
-              {row.id == "col_fecha_nacimiento" && (
+              {/* {row.id == "col_fecha_nacimiento" && (
                 <Controller
                   control={control}
                   name="col_fecha_nacimiento"
@@ -504,7 +504,7 @@ function CustomTableHead(props) {
                     />
                   )}
                 />
-              )}
+              )} */}
               {row.id === "col_estado" && (
                 <Controller
                   name="col_estado"

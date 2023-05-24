@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import _ from "@lodash";
+import orderBy from "lodash/orderBy";
 import clsx from "clsx";
-import { format } from "date-fns";
+// import { format } from "date-fns";
 
 import { makeStyles } from "@mui/styles";
 import {
@@ -234,7 +234,7 @@ export function CustomTable() {
       <Table className="min-w-xl" aria-labelledby="tableTitle">
         <CustomTableHead onRequestSort={handleRequestSort} order={order} />
         <TableBody>
-          {_.orderBy(
+          {orderBy(
             data,
             [
               (o) => {
