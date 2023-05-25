@@ -7,8 +7,8 @@ export class Articulos{
     idArticulo: string;
 
     @ManyToOne(type => AreasCono)
-    @JoinColumn({name: 'idAreaCon'})
-    idAreaCon: AreasCono | string;
+    @JoinColumn({name: 'idCatTem'})
+    idCatTem: AreasCono | string;
 
     @Column()
     nombreIdArticulo: string;
