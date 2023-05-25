@@ -116,7 +116,6 @@ export class CursoEmpleadosService {
         return {
             success: true,
             data: {
-                // empleados: empleados,
                 cursosEmpleados: cursosEmpleados
             }
           };
@@ -155,7 +154,6 @@ export class CursoEmpleadosService {
             success: true,
             data: {
                 count: cantidad,
-                // cursos: cursos,
                 cursosEmpleados: cursosEmpleados
             }
           };
@@ -207,7 +205,6 @@ export class CursoEmpleadosService {
         return {
             success: true,
             data: {
-                // cursos: cursos,
                 cursosEmpleados: cursosEmpleados
             }
           };
@@ -258,7 +255,6 @@ export class CursoEmpleadosService {
         return {
             success: true,
             data: {
-                // cursos: cursos,
                 cursosEmpleados: cursosEmpleados
             }
           };

@@ -2,7 +2,7 @@ import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 't
 import { Estados } from './estados.entity';
 
 
-@Entity('Ciudad')
+@Entity('ciudad')
 export class Ciudades{
     @PrimaryGeneratedColumn('uuid')
     idCiudad: string;

@@ -1,7 +1,7 @@
 import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { AreasCono } from './areas-cono.entity';
 
-@Entity('Articulo')
+@Entity('articulo')
 export class Articulos{
     @PrimaryGeneratedColumn('uuid')
     idArticulo: string;
@@ -9,4 +9,8 @@ export class Articulos{
     @ManyToOne(type => AreasCono)
     @JoinColumn({name: 'idCatTem'})
     idAreaCon: AreasCono | string;
+
+    @Column()
+    nombreIdArticulo: string;
+
 }

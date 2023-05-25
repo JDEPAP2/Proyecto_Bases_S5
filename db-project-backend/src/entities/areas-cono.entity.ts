@@ -1,7 +1,7 @@
 import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { CatTematicas } from './cat-tematicas.entity';
 
-@Entity('AreaConocimiento')
+@Entity('areaConocimiento')
 export class AreasCono{
     @PrimaryGeneratedColumn('uuid')
     idAreaCon: string;

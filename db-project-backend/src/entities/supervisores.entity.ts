@@ -1,6 +1,6 @@
 import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 
-@Entity('Supervisor')
+@Entity('supervisor')
 export class Supervisores{
     @PrimaryGeneratedColumn('uuid')
     idSupervisor: string;

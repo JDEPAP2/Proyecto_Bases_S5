@@ -64,10 +64,10 @@ export class CursosService {
 
   async getCursosWithLimit(limit: number){
     try{
-        const companias = await this.cursosRepository.find({
+        const cursos = await this.cursosRepository.find({
             take: limit
         })
-        if(companias.length === 0){
+        if(cursos.length === 0){
             return {
                 success: false,
                 message: "No hay cursos",
@@ -75,7 +75,7 @@ export class CursosService {
         }
         return {
             success: true,
-            data: companias
+            data: cursos
           };
 
     }catch (err) {

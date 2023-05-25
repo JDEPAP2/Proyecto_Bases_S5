@@ -92,18 +92,12 @@ export class EmpleadosService {
 
   async getPromEmpleadosByCountry(country:string){
     try{
-        const empleados = await this.empleadosRepository.find({
-          relations:['ubicacionE'],
-            where:{
-            ubicacionE:{
-              idEstadoProvincia:{
-                  idPaisRegion:{
-                      nombre: country
-                  }
-              }
-            }
-          },
-        })
+      const empleados = await this.empleadosRepository.createQueryBuilder('empleado')
+      .leftJoin('empleado.ubicacionE', 'ciudad')
+      .leftJoin('ciudad.idEstadoProvincia', 'estadoProvincia')
+      .leftJoin('estadoProvincia.idPaisRegion', 'paisRegion')
+      .where('paisRegion.nombre = :country', { country })
+      .getMany();
 
         if(empleados.length === 0){
             return {
@@ -140,18 +134,12 @@ export class EmpleadosService {
 
   async getEmpleadosByCountry(country:string){
     try{
-        const empleados = await this.empleadosRepository.find({
-          relations:['ubicacionE'],
-          where:{
-            ubicacionE:{
-              idEstadoProvincia:{
-                idPaisRegion:{
-                  nombre: country
-                }
-              }
-            }
-          },
-        })
+      const empleados = await this.empleadosRepository.createQueryBuilder('empleado')
+      .leftJoin('empleado.ubicacionE', 'ciudad')
+      .leftJoin('ciudad.idEstadoProvincia', 'estadoProvincia')
+      .leftJoin('estadoProvincia.idPaisRegion', 'paisRegion')
+      .where('paisRegion.nombre = :country', { country })
+      .getMany();
 
         if(empleados.length === 0){
             return {

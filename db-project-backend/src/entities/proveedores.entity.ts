@@ -1,7 +1,7 @@
 import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { Articulos } from './articulos.entity';
 
-@Entity('Proveedor')
+@Entity('proveedor')
 export class Proveedores{
     @PrimaryGeneratedColumn('uuid')
     idProveedor: string;

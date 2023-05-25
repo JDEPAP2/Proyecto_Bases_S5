@@ -3,7 +3,7 @@ import { ArticulosEsp } from './articulos-esp.entity';
 import { Proveedores } from './proveedores.entity';
 
 
-@Entity('Curso')
+@Entity('curso')
 export class Cursos{
     @PrimaryGeneratedColumn('uuid')
     idCurso: string;

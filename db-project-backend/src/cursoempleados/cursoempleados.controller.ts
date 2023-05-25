@@ -16,6 +16,7 @@ import { GlobalsService } from 'src/globals/globals.service';
 import { CursoEmpleadosService } from './cursoempleados.service';
 import { EmpleadosService } from 'src/empleados/empleados.service';
 import { CursosService } from 'src/cursos/cursos.service.service';
+import { PaginationDto } from 'src/globals/paginationDto';
 
   @Controller('curso-empleado')
   export class CursoEmpleadosController {
@@ -23,6 +24,32 @@ import { CursosService } from 'src/cursos/cursos.service.service';
       private readonly cursoEmpleadoService: CursoEmpleadosService,
       private readonly globalsService: GlobalsService,
     ) {}
+
+    @Get('/Querys')
+    async getAllbyQuerys(
+        @Query() paginationDto: PaginationDto
+    ) {
+      let response: responseDto = {
+        message: "No funciono, elija idEmpleado o idCurso almenos",
+        success: false
+      }
+
+      if(paginationDto?.country && paginationDto?.modal && paginationDto?.limit){
+        response = await this.cursoEmpleadoService.getBestCursosByCountryWithModal(paginationDto.country,paginationDto.modal,paginationDto.limit);
+      }else if(paginationDto?.country && paginationDto?.limit){
+        response = await this.cursoEmpleadoService.getBestCursosByCountry(paginationDto.country,paginationDto.limit);
+      }else if(paginationDto?.state){
+        response = await this.cursoEmpleadoService.getCountAndCursosEmpleadosAprobados(paginationDto.idEmpleado, paginationDto.state);
+      }else if(paginationDto?.best){
+        response = await this.cursoEmpleadoService.getBestEmpleadosWithLimit(paginationDto.limit);
+      }else if(paginationDto?.idEmpleado){
+        response = await await this.cursoEmpleadoService.getCursosEmpleadosByCursos(paginationDto.idCurso)
+      }else if(paginationDto?.idCurso){
+        response = await this.cursoEmpleadoService.getCursosEmpleadosByEmpleado(paginationDto.idEmpleado)
+      }
+      if (!response.success) await this.globalsService.handleError(response);
+      return response;
+    }
   
     @Get('/allEmpleados/:idEmpleado')
     async getAllCursosE(

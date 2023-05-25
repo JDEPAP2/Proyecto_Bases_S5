@@ -1,6 +1,6 @@
 import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 
-@Entity('Area')
+@Entity('area')
 export class Area{
     @PrimaryGeneratedColumn('uuid')
     idArea: string;

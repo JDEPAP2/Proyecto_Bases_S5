@@ -1,6 +1,6 @@
 import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 
-@Entity('RecursoHumano')
+@Entity('recursoHumano')
 export class RecursosHum{
     @PrimaryGeneratedColumn('uuid')
     usuarioHR: string;

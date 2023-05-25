@@ -6,7 +6,7 @@ import { RecursosHum } from './recursos-hum.entity';
 import { Ciudades } from './ciudades.entity';
 
 
-@Entity('Empleado')
+@Entity('empleado')
 export class Empleados{
     @PrimaryGeneratedColumn('uuid')
     idEmpleado: string;
