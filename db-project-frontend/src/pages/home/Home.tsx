@@ -32,13 +32,13 @@ const Home = () => {
         <Contenedor title="holandes" />
         <Contenedor title="frances" />
       </div>
-      <p className="text-3xl font-extrabold mt-10 text-center">Promedios:</p>
+      {/* <p className="text-3xl font-extrabold mt-10 text-center">Promedios:</p>
       <div className="flex justify-center gap-5 mt-5">
-        <Contenedor2 title="ingles" />
-        <Contenedor2 title="español" />
+        <Contenedor2 title="Panama" />
+        <Contenedor2 title="costa rica" />
         <Contenedor2 title="holandes" />
         <Contenedor2 title="frances" />
-      </div>
+      </div> */}
     </>
   );
 };

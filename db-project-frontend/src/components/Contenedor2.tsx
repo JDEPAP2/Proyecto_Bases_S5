@@ -16,7 +16,7 @@ const Contenedor = (props) => {
           `https://pqxb3e-3000.csb.app/api/empleados/prom-country/`,
           { country: title.toLowerCase() }
         );
-        console.log("responseeeeeee", response);
+        console.log("responseeeeeee2222222222", response);
         setData(response.data.data.count);
       };
       dataFetch();
@@ -24,7 +24,6 @@ const Contenedor = (props) => {
     fetchData();
   }, []);
 
-  console.log(data);
   return (
     <div className="p-5 shadow-lg rounded-3xl text-center">
       <p className="text-2xl font-semibold">{title}</p>
