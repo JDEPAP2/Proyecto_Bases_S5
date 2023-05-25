@@ -19,7 +19,7 @@ export function buildDataSourceOptions(
     port: configService.get('DATABASE_PORT'),
     database: configService.get('DATABASE_NAME'),
     entities: [__dirname + '/../**/*.entity{.ts,.js}'],
-    synchronize: true,
+    synchronize: false,
     migrations: [__dirname+ '/../migrations/**/*{.ts,.js}'],
   };
 }
