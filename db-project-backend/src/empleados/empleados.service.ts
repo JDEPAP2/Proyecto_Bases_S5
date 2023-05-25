@@ -4,7 +4,7 @@ import { v4 as uuid } from 'uuid';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Like, Repository } from 'typeorm';
 import { config } from 'dotenv';
-import { Empleados } from '../entities/Empleados.entity';
+import { Empleados } from '../entities/empleados.entity';
 import { CursoEmpleados } from '../entities/curso-empleados.entity';
 import { CursoEmpleadosService } from '../cursoempleados/cursoempleados.service';
 
